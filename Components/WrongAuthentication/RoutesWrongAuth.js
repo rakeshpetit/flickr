@@ -10,7 +10,7 @@ const SignIn = (props) => {
       <Text>Component Signin</Text>
       <Button
         onPress={() => {
-        navigation.navigate('SignUp');
+        navigation.goBack();
       }}
         title="Go back"
       />
@@ -50,4 +50,4 @@ const RoutesWrongAuth = StackNavigator({
   }
 });
 
-export { RoutesWrongAuth };
+export default RoutesWrongAuth;
