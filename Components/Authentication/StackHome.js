@@ -15,11 +15,17 @@ const StackHome = StackNavigator({
     screen: Posts
   },
   Comments: {
-    screen: Comments,
-    navigationOptions: {
-      tabBarVisible: false
-    }
+    screen: Comments
   },
 });
+
+StackHome.navigationOptions = ({ navigation }) => {
+  const { routeName } = navigation.state.routes[navigation.state.index];
+  const navigationOptions = {};
+  if (routeName === 'Comments') {
+    navigationOptions.tabBarVisible = false;
+  }
+  return navigationOptions;
+};
 
 export default StackHome;
