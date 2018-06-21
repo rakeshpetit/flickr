@@ -41,7 +41,7 @@ SignUp.propTypes = {
   navigation: PropTypes.func.isRequired
 };
 
-const RoutesWrongAuth = StackNavigator({
+const RoutesUnAuth = StackNavigator({
   SignUp: {
     screen: SignUp
   },
@@ -50,4 +50,4 @@ const RoutesWrongAuth = StackNavigator({
   }
 });
 
-export default RoutesWrongAuth;
+export default RoutesUnAuth;

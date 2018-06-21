@@ -3,8 +3,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-// import RoutesWrongAuth from './Components/WrongAuthentication/RoutesWrongAuth';
-import RoutesAuth from './Components/Authentication/RoutesAuth';
+import { Provider } from 'react-redux';
+import RoutesUnAuth from './Components/UnAuthenticated/RoutesUnAuth';
+// import RoutesAuth from './Components/Authentication/RoutesAuth';
+import Store from './Store/Store';
 
 console.disableYellowBox = ['Remote debugger'];
 export default class App extends Component {
@@ -15,7 +17,9 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <RoutesAuth />
+        <Provider store={Store}>
+          <RoutesUnAuth />
+        </Provider>
       </View>
     );
   }
