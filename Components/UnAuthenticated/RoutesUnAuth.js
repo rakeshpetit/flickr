@@ -1,45 +1,6 @@
-import React from 'react';
-import { View, Button, Text } from 'react-native';
-import PropTypes from 'prop-types';
 import { StackNavigator } from 'react-navigation';
-
-const SignIn = (props) => {
-  const { navigation } = props;
-  return (
-    <View>
-      <Text>Component Signin</Text>
-      <Button
-        onPress={() => {
-        navigation.goBack();
-      }}
-        title="Go back"
-      />
-    </View>
-  );
-};
-
-SignIn.propTypes = {
-  navigation: PropTypes.func.isRequired
-};
-
-const SignUp = (props) => {
-  const { navigation } = props;
-  return (
-    <View>
-      <Text>Component Signup</Text>
-      <Button
-        onPress={() => {
-        navigation.navigate('SignIn');
-      }}
-        title="Sign in"
-      />
-    </View>
-  );
-};
-
-SignUp.propTypes = {
-  navigation: PropTypes.func.isRequired
-};
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const RoutesUnAuth = StackNavigator({
   SignUp: {
