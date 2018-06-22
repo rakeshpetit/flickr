@@ -1,10 +1,12 @@
 import { createStore, combineReducers } from 'redux';
+import { reducer as form } from 'redux-form';
 import allReducers from '.././reducers';
 // const initialReducer = (state = [], action) => state;
 
 const reducers = combineReducers({
   // initialReducer
-  allReducers
+  allReducers,
+  form
 });
 
 console.log('form', allReducers);

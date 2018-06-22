@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { newAction } from '../../actions';
+import SignupForm from './Forms/SignupForm';
 
 class SignUpPure extends Component {
   render() {
@@ -11,6 +12,7 @@ class SignUpPure extends Component {
     return (
       <View style={styles.container}>
         <Text>Sign Up</Text>
+        <SignupForm />
         <Button
           onPress={this.props.newAction}
           title="Action"
