@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { newAction } from '../../actions';
 
-class SignUp extends Component {
+class SignUpPure extends Component {
   render() {
+    console.log('props', this.props.number);
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Text>Sign Up</Text>
+        <Button
+          onPress={this.props.newAction}
+          title="Action"
+        />
         <Button
           onPress={() => {
           navigation.navigate('SignIn');
@@ -19,9 +26,25 @@ class SignUp extends Component {
   }
 }
 
-SignUp.propTypes = {
-  navigation: PropTypes.func.isRequired
+SignUpPure.propTypes = {
+  navigation: PropTypes.func.isRequired,
+  newAction: PropTypes.func.isRequired,
+  number: PropTypes.object.isRequired
 };
+
+function mapStateToProps(state) {
+  return {
+    number: state.allReducers
+  };
+}
+
+const actionsToProps = {
+  newAction
+};
+
+export const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);
+
+export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
@@ -31,5 +54,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   }
 });
-
-export default SignUp;
