@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import SigninForm from './Forms/SigninForm';
+
 
 class SignIn extends Component {
   render() {
@@ -8,6 +10,7 @@ class SignIn extends Component {
     return (
       <View style={styles.container}>
         <Text>Sign In</Text>
+        <SigninForm />
         <Button
           onPress={() => {
           navigation.goBack();

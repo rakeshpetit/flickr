@@ -33,14 +33,6 @@ const validate = (values) => {
   /* eslint-disable */
   const emailRegexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   /* eslint-enable */
-  if (!values.fullName) {
-    errors.fullName = 'Required field';
-  } else if (values.fullName.length < 3) {
-    errors.fullName = 'Atleast 3 characters';
-  } else if (values.fullName.length > 12) {
-    errors.fullName = 'At most 12 characters';
-  }
-
   if (!values.email) {
     errors.email = 'Required field';
   } else if (!emailRegexp.test(values.email)) {
@@ -49,29 +41,20 @@ const validate = (values) => {
 
   if (!values.password) {
     errors.password = 'Required field';
-  } else if (values.password.length < 5) {
-    errors.password = 'Atleast 5 characters';
-  } else if (values.password.length > 15) {
-    errors.password = 'At most 15 characters';
+  } else if (values.password.length < 5 || values.password.length > 15) {
+    errors.password = 'Wrong password';
   }
 
-  if (!values.confirmPassword) {
-    errors.confirmPassword = 'Required field';
-  } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = 'Confirm password different from password';
-  }
   return errors;
 };
 
-const SignupForm = (props) => {
+const SigninForm = (props) => {
   console.log(props);
   return (
     <View>
-      <Text>Signup Form</Text>
-      <Field placeholderText="Full Name" name="fullName" component={FieldName} />
+      <Text>Signin Form</Text>
       <Field placeholderText="E-mail" name="email" component={FieldName} />
       <Field placeholderText="Password" name="password" component={FieldName} />
-      <Field placeholderText="Confirm Password" name="confirmPassword" component={FieldName} />
       <Button
         onPress={props.handleSubmit((values) => {
           console.log(values);
@@ -82,11 +65,11 @@ const SignupForm = (props) => {
   );
 };
 
-SignupForm.propTypes = {
+SigninForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 };
 
 export default reduxForm({
-  form: 'SignupForm',
+  form: 'SigninForm',
   validate
-})(SignupForm);
+})(SigninForm);

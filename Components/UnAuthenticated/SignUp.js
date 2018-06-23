@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { newAction } from '../../actions';
@@ -11,7 +11,6 @@ class SignUpPure extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Sign Up</Text>
         <SignupForm />
         <Button
           onPress={this.props.newAction}
