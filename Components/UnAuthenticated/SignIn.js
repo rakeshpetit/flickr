@@ -9,7 +9,6 @@ class SignIn extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Sign In</Text>
         <SigninForm />
         <Button
           onPress={() => {

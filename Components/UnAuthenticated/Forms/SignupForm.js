@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import { authenticate } from '../../../Store/Firebase';
 
 const FieldName = (props) => {
   console.log(props);
   return (
     <View>
       <TextInput
+        style={styles.field}
         placeholder={props.placeholderText}
         onChangeText={props.input.onChange}
         onBlur={props.input.onBlur}
@@ -17,7 +19,7 @@ const FieldName = (props) => {
         secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
       />
       {props.meta.touched && props.meta.error &&
-        <Text>{props.meta.error}</Text>}
+        <Text style={styles.error}>{props.meta.error}</Text>}
     </View>
   );
 };
@@ -74,7 +76,16 @@ const SignupForm = (props) => {
       <Field placeholderText="Confirm Password" name="confirmPassword" component={FieldName} />
       <Button
         onPress={props.handleSubmit((values) => {
-          console.log(values);
+          console.log('values', values);
+          console.log('authenticate', authenticate);
+          authenticate.createUserWithEmailAndPassword(values.email, values.password)
+          .then((success) => {
+            console.log(success);
+          })
+          .catch((error) => {
+            console.log(error.code);
+            console.log(error.message);
+          });
         })}
         title="Submit"
       />
@@ -90,3 +101,20 @@ export default reduxForm({
   form: 'SignupForm',
   validate
 })(SignupForm);
+
+const styles = StyleSheet.create({
+  field: {
+    color: 'white',
+    alignItems: 'center',
+    padding: 10,
+    margin: 10,
+    width: 150,
+    backgroundColor: 'gray',
+    borderRadius: 20
+  },
+  error: {
+    color: 'red',
+    margin: 10,
+    alignItems: 'center',
+  }
+});

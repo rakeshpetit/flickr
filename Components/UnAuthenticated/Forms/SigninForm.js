@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
@@ -8,6 +8,7 @@ const FieldName = (props) => {
   return (
     <View>
       <TextInput
+        style={styles.field}
         placeholder={props.placeholderText}
         onChangeText={props.input.onChange}
         onBlur={props.input.onBlur}
@@ -17,7 +18,7 @@ const FieldName = (props) => {
         secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
       />
       {props.meta.touched && props.meta.error &&
-        <Text>{props.meta.error}</Text>}
+        <Text style={styles.error}>{props.meta.error}</Text>}
     </View>
   );
 };
@@ -73,3 +74,20 @@ export default reduxForm({
   form: 'SigninForm',
   validate
 })(SigninForm);
+
+const styles = StyleSheet.create({
+  field: {
+    color: 'white',
+    alignItems: 'center',
+    padding: 10,
+    margin: 10,
+    width: 150,
+    backgroundColor: 'gray',
+    borderRadius: 20
+  },
+  error: {
+    color: 'red',
+    margin: 10,
+    alignItems: 'center',
+  }
+});
