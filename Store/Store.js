@@ -1,6 +1,8 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { reducer as form } from 'redux-form';
+import createSagaMiddleware from 'redux-saga';
 import allReducers from '.././reducers';
+import funcMain from '../sagas/sagas';
 // const initialReducer = (state = [], action) => state;
 
 const reducers = combineReducers({
@@ -9,10 +11,10 @@ const reducers = combineReducers({
   form
 });
 
-console.log('form', allReducers);
+const sagaMiddleware = createSagaMiddleware();
 
-console.log('reducers', reducers);
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
-const store = createStore(reducers);
+sagaMiddleware.run(funcMain);
 
 export default store;

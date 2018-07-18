@@ -2,27 +2,23 @@ import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { authenticate } from '../../../Store/Firebase';
 
-const FieldName = (props) => {
-  console.log(props);
-  return (
-    <View>
-      <TextInput
-        style={styles.field}
-        placeholder={props.placeholderText}
-        onChangeText={props.input.onChange}
-        onBlur={props.input.onBlur}
-        value={props.input.value}
-        keyboardType={props.input.name === 'email' ? 'email-address' : 'default'}
-        autoCapitalize="none"
-        secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
-      />
-      {props.meta.touched && props.meta.error &&
-        <Text style={styles.error}>{props.meta.error}</Text>}
-    </View>
-  );
-};
+const FieldName = props => (
+  <View>
+    <TextInput
+      style={styles.field}
+      placeholder={props.placeholderText}
+      onChangeText={props.input.onChange}
+      onBlur={props.input.onBlur}
+      value={props.input.value}
+      keyboardType={props.input.name === 'email' ? 'email-address' : 'default'}
+      autoCapitalize="none"
+      secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
+    />
+    {props.meta.touched && props.meta.error &&
+      <Text style={styles.error}>{props.meta.error}</Text>}
+  </View>
+);
 
 FieldName.propTypes = {
   placeholderText: PropTypes.string.isRequired,
@@ -65,36 +61,23 @@ const validate = (values) => {
   return errors;
 };
 
-const SignupForm = (props) => {
-  console.log(props);
-  return (
-    <View>
-      <Text>Signup Form</Text>
-      <Field placeholderText="Full Name" name="fullName" component={FieldName} />
-      <Field placeholderText="E-mail" name="email" component={FieldName} />
-      <Field placeholderText="Password" name="password" component={FieldName} />
-      <Field placeholderText="Confirm Password" name="confirmPassword" component={FieldName} />
-      <Button
-        onPress={props.handleSubmit((values) => {
-          console.log('values', values);
-          console.log('authenticate', authenticate);
-          authenticate.createUserWithEmailAndPassword(values.email, values.password)
-          .then((success) => {
-            console.log(success);
-          })
-          .catch((error) => {
-            console.log(error.code);
-            console.log(error.message);
-          });
-        })}
-        title="Submit"
-      />
-    </View>
-  );
-};
+const SignupForm = props => (
+  <View>
+    <Text>Signup Form</Text>
+    <Field placeholderText="Full Name" name="fullName" component={FieldName} />
+    <Field placeholderText="E-mail" name="email" component={FieldName} />
+    <Field placeholderText="Password" name="password" component={FieldName} />
+    <Field placeholderText="Confirm Password" name="confirmPassword" component={FieldName} />
+    <Button
+      onPress={props.handleSubmit(props.register)}
+      title="Submit"
+    />
+  </View>
+);
 
 SignupForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
 export default reduxForm({

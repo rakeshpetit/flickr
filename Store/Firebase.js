@@ -12,3 +12,4 @@ const config = {
 firebase.initializeApp(config);
 
 export const authenticate = firebase.auth();
+export const database = firebase.database();

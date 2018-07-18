@@ -3,25 +3,21 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
-const FieldName = (props) => {
-  console.log(props);
-  return (
-    <View>
-      <TextInput
-        style={styles.field}
-        placeholder={props.placeholderText}
-        onChangeText={props.input.onChange}
-        onBlur={props.input.onBlur}
-        value={props.input.value}
-        keyboardType={props.input.name === 'email' ? 'email-address' : 'default'}
-        autoCapitalize="none"
-        secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
-      />
-      {props.meta.touched && props.meta.error &&
-        <Text style={styles.error}>{props.meta.error}</Text>}
-    </View>
-  );
-};
+const FieldName = props => (
+  <View>
+    <TextInput
+      style={styles.field}
+      placeholder={props.placeholderText}
+      onChangeText={props.input.onChange}
+      onBlur={props.input.onBlur}
+      value={props.input.value}
+      keyboardType={props.input.name === 'email' ? 'email-address' : 'default'}
+      autoCapitalize="none"
+      secureTextEntry={(props.input.name === 'password' || props.input.name === 'confirmPassword')}
+    />
+    {props.meta.touched && props.meta.error &&
+      <Text style={styles.error}>{props.meta.error}</Text>}
+  </View>);
 
 FieldName.propTypes = {
   placeholderText: PropTypes.string.isRequired,
@@ -49,22 +45,19 @@ const validate = (values) => {
   return errors;
 };
 
-const SigninForm = (props) => {
-  console.log(props);
-  return (
-    <View>
-      <Text>Signin Form</Text>
-      <Field placeholderText="E-mail" name="email" component={FieldName} />
-      <Field placeholderText="Password" name="password" component={FieldName} />
-      <Button
-        onPress={props.handleSubmit((values) => {
-          console.log(values);
-        })}
-        title="Submit"
-      />
-    </View>
-  );
-};
+const SigninForm = props => (
+  <View>
+    <Text>Signin Form</Text>
+    <Field placeholderText="E-mail" name="email" component={FieldName} />
+    <Field placeholderText="Password" name="password" component={FieldName} />
+    <Button
+      onPress={props.handleSubmit((values) => {
+        console.log(values);
+      })}
+      title="Submit"
+    />
+  </View>
+);
 
 SigninForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired

@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { newAction } from '../../actions';
+import { newAction, register } from '../../actions';
 import SignupForm from './Forms/SignupForm';
 
 class SignUpPure extends Component {
+  registerUser = (values) => {
+    this.props.register(values);
+  }
+
   render() {
-    console.log('props', this.props.number);
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <SignupForm />
+        <SignupForm register={this.registerUser} />
         <Button
           onPress={this.props.newAction}
           title="Action"
@@ -30,6 +33,7 @@ class SignUpPure extends Component {
 SignUpPure.propTypes = {
   navigation: PropTypes.func.isRequired,
   newAction: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
   number: PropTypes.object.isRequired
 };
 
@@ -40,7 +44,8 @@ function mapStateToProps(state) {
 }
 
 const actionsToProps = {
-  newAction
+  newAction,
+  register
 };
 
 export const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);
