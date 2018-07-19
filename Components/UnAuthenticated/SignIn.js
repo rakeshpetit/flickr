@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import SigninForm from './Forms/SigninForm';
+import { login } from '../../actions';
 
+class SignInPure extends Component {
+  loginUser = (values) => {
+    this.props.login(values);
+    console.log('loginUser', values);
+  }
 
-class SignIn extends Component {
   render() {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <SigninForm />
+        <SigninForm login={this.loginUser} />
         <Button
           onPress={() => {
           navigation.goBack();
@@ -21,9 +27,18 @@ class SignIn extends Component {
   }
 }
 
-SignIn.propTypes = {
+SignInPure.propTypes = {
+  login: PropTypes.func.isRequired,
   navigation: PropTypes.func.isRequired
 };
+
+const actionsToProps = {
+  login
+};
+
+export const SignIn = connect(null, actionsToProps)(SignInPure);
+
+export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
@@ -33,5 +48,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   }
 });
-
-export default SignIn;

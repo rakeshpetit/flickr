@@ -45,22 +45,24 @@ const validate = (values) => {
   return errors;
 };
 
-const SigninForm = props => (
-  <View>
-    <Text>Signin Form</Text>
-    <Field placeholderText="E-mail" name="email" component={FieldName} />
-    <Field placeholderText="Password" name="password" component={FieldName} />
-    <Button
-      onPress={props.handleSubmit((values) => {
-        console.log(values);
-      })}
-      title="Submit"
-    />
-  </View>
-);
+const SigninForm = (props) => {
+  console.log(props);
+  return (
+    <View>
+      <Text>Signin Form</Text>
+      <Field placeholderText="E-mail" name="email" component={FieldName} />
+      <Field placeholderText="Password" name="password" component={FieldName} />
+      <Button
+        onPress={props.handleSubmit(props.login)}
+        title="Submit"
+      />
+    </View>
+  );
+};
 
 SigninForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 export default reduxForm({

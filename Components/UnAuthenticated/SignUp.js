@@ -33,8 +33,7 @@ class SignUpPure extends Component {
 SignUpPure.propTypes = {
   navigation: PropTypes.func.isRequired,
   newAction: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  number: PropTypes.object.isRequired
+  register: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
