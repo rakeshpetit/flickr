@@ -8,7 +8,6 @@ import { login } from '../../actions';
 class SignInPure extends Component {
   loginUser = (values) => {
     this.props.login(values);
-    console.log('loginUser', values);
   }
 
   render() {
@@ -36,7 +35,7 @@ const actionsToProps = {
   login
 };
 
-export const SignIn = connect(null, actionsToProps)(SignInPure);
+const SignIn = connect(null, actionsToProps)(SignInPure);
 
 export default SignIn;
 

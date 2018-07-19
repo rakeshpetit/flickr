@@ -4,8 +4,7 @@ import {
   View,
 } from 'react-native';
 import { Provider } from 'react-redux';
-import RoutesUnAuth from './Components/UnAuthenticated/RoutesUnAuth';
-// import RoutesAuth from './Components/Authentication/RoutesAuth';
+import DivertFlow from './Components/FlowSelect/DivertFlow';
 import Store from './Store/Store';
 
 console.disableYellowBox = ['Remote debugger'];
@@ -18,7 +17,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Provider store={Store}>
-          <RoutesUnAuth />
+          <DivertFlow />
         </Provider>
       </View>
     );

@@ -47,7 +47,7 @@ const actionsToProps = {
   register
 };
 
-export const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);
+const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);
 
 export default SignUp;
 
