@@ -63,7 +63,6 @@ const validate = (values) => {
 
 const SignupForm = props => (
   <View>
-    <Text>Signup Form</Text>
     <Field placeholderText="Full Name" name="fullName" component={FieldName} />
     <Field placeholderText="E-mail" name="email" component={FieldName} />
     <Field placeholderText="Password" name="password" component={FieldName} />

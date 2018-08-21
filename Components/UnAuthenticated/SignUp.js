@@ -1,24 +1,57 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 import { newAction, register } from '../../actions';
 import SignupForm from './Forms/SignupForm';
+import { SelectImage } from '../Authentication/SelectImage';
+// var ImagePicker = require('react-native-image-picker');
+
+var options = {
+  title: 'Select Avatar',
+  customButtons: [
+    {name: 'fb', title: 'Choose Photo from Facebook'},
+  ],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
 
 class SignUpPure extends Component {
+  state = { avatarSource: null };
   registerUser = (values) => {
     this.props.register(values);
   }
 
+  openGallery = () => {
+    ImagePicker.showImagePicker(options, (response) => {    
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        const source = { uri: response.uri };
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
+  } ;
+
   render() {
     const { navigation } = this.props;
+    const uri = this.state.avatarSource ? this.state.avatarSource : null;
     return (
       <View style={styles.container}>
+        <SelectImage source={uri} select={this.openGallery} />
         <SignupForm register={this.registerUser} />
-        <Button
-          onPress={this.props.newAction}
-          title="Action"
-        />
         <Button
           onPress={() => {
           navigation.navigate('SignIn');
