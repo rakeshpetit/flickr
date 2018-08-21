@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import tempImage from '../../assets/sunflower.jpg';
 
 export class SelectImage extends Component {
   render() {
     return (
       <View>
         <TouchableOpacity onPress={this.props.select}>
-          <Image source={this.props.source} style={styles.imageContainer} />
+          {this.props.source ? (
+            <Image source={this.props.source} style={styles.imageContainer} />
+          ) : (
+            <Image
+              source={tempImage}
+              style={styles.imageContainer}
+            />
+          )}
         </TouchableOpacity>
       </View>
     );
