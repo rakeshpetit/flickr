@@ -46,10 +46,8 @@ const validate = (values) => {
 };
 
 const SigninForm = (props) => {
-  console.log(props);
   return (
     <View>
-      <Text>Signin Form</Text>
       <Field placeholderText="E-mail" name="email" component={FieldName} />
       <Field placeholderText="Password" name="password" component={FieldName} />
       <Button
@@ -74,15 +72,17 @@ const styles = StyleSheet.create({
   field: {
     color: 'white',
     alignItems: 'center',
-    padding: 10,
-    margin: 10,
-    width: 150,
-    backgroundColor: 'gray',
-    borderRadius: 20
+    width: 250,
+    backgroundColor: '#B6C0F7',
+    borderRadius: 20,
+    padding: 20,
+    marginLeft: 15,
+    marginTop: 20,
+    marginRight: 15,
   },
   error: {
     color: 'red',
-    margin: 10,
+    marginLeft: 20,
     alignItems: 'center',
   }
 });

@@ -86,17 +86,19 @@ export default reduxForm({
 
 const styles = StyleSheet.create({
   field: {
-    color: 'white',
+    color: 'black',
     alignItems: 'center',
-    padding: 10,
-    margin: 10,
-    width: 150,
-    backgroundColor: 'gray',
+    padding: 12,
+    marginLeft: 15,
+    marginTop: 20,
+    marginRight: 15,
+    width: 250,
+    backgroundColor: '#FACCF8',
     borderRadius: 20
   },
   error: {
     color: 'red',
-    margin: 10,
+    marginLeft: 15,
     alignItems: 'center',
   }
 });
