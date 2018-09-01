@@ -3,7 +3,7 @@ import { View, Button, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
-import { newAction, register } from '../../actions';
+import { newAction, register, saveImageCloud } from '../../actions';
 import SignupForm from './Forms/SignupForm';
 import { SelectImage } from '../Authentication/SelectImage';
 // var ImagePicker = require('react-native-image-picker');
@@ -22,7 +22,11 @@ var options = {
 class SignUpPure extends Component {
   state = { avatarSource: null };
   registerUser = (values) => {
-    this.props.register(values);
+    console.log('this.state.avatarSource', this.state.avatarSource);
+    if (this.state.avatarSource !== null && this.state.avatarSource !== undefined) {
+      this.props.saveImageCloud(this.state.avatarSource);
+      this.props.register(values);
+    }
   }
 
   openGallery = () => {
@@ -37,7 +41,8 @@ class SignUpPure extends Component {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        const source = { uri: response.uri };
+        console.log('response', response);
+        const source = { uri: response.uri, data: response.data };
         this.setState({
           avatarSource: source
         });
@@ -65,8 +70,8 @@ class SignUpPure extends Component {
 
 SignUpPure.propTypes = {
   navigation: PropTypes.func.isRequired,
-  newAction: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  saveImageCloud: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -77,7 +82,8 @@ function mapStateToProps(state) {
 
 const actionsToProps = {
   newAction,
-  register
+  register,
+  saveImageCloud
 };
 
 const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);
