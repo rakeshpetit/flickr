@@ -33,5 +33,11 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "standard": {
+    "globals": [
+      "fetch",
+      "FormData"
+    ]
   }
 }

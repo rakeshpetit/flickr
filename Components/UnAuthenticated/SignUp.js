@@ -3,7 +3,7 @@ import { View, Button, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
-import { newAction, register, saveImageCloud } from '../../actions';
+import { newAction, register } from '../../actions';
 import SignupForm from './Forms/SignupForm';
 import { SelectImage } from '../Authentication/SelectImage';
 // var ImagePicker = require('react-native-image-picker');
@@ -23,9 +23,10 @@ class SignUpPure extends Component {
   state = { avatarSource: null };
   registerUser = (values) => {
     console.log('this.state.avatarSource', this.state.avatarSource);
+    let modValues = { ...values };
+    modValues.image = this.state.avatarSource;
     if (this.state.avatarSource !== null && this.state.avatarSource !== undefined) {
-      this.props.saveImageCloud(this.state.avatarSource);
-      this.props.register(values);
+      this.props.register(modValues);
     }
   }
 
@@ -42,7 +43,12 @@ class SignUpPure extends Component {
       }
       else {
         console.log('response', response);
-        const source = { uri: response.uri, data: response.data };
+        const source = {
+          name: response.fileName,
+          type: response.type,
+          uri: response.uri,
+          data: response.data
+        };
         this.setState({
           avatarSource: source
         });
@@ -70,8 +76,7 @@ class SignUpPure extends Component {
 
 SignUpPure.propTypes = {
   navigation: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  saveImageCloud: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -82,8 +87,7 @@ function mapStateToProps(state) {
 
 const actionsToProps = {
   newAction,
-  register,
-  saveImageCloud
+  register
 };
 
 const SignUp = connect(mapStateToProps, actionsToProps)(SignUpPure);

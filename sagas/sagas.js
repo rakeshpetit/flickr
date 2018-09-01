@@ -1,6 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { authenticate, database } from '../Store/Firebase';
 import { REGISTER, LOGIN, saveImage, SAVE_IMAGE_CLOUD } from '../actions';
+import { ENV as env } from '../const';
 
 const registerUserWithFirebase = values => authenticate
   .createUserWithEmailAndPassword(values.email, values.password)
@@ -22,16 +23,32 @@ const loginUserWithFirebase = (values) => {
 
 function* imageUploadCloudinary(image) {
   console.log('imageUploadCloudinary', image);
+  const photo = {
+    uri: image.uri,
+    name: image.name,
+    type: image.type
+  };
+  console.log('photo', photo);
+  console.log('env', env);
+  const formPhoto = new FormData();
+  formPhoto.append('upload_preset', env.CLOUDINARY_PRESET);
+  formPhoto.append('file', photo);
+  return fetch(env.CLOUDINARY_API, {
+    method: 'POST',
+    body: formPhoto
+  }).then(response => response.json());
   yield put(saveImage(image));
 }
 
-function* registerUserCall(values) {
-  console.log('values registerUserCall', values);
+function* registerUserCall({ data }) {  
+  console.log('values registerUserCall', data);
   try {
     // const registerData = yield call(registerUserWithFirebase, values.data);
     // console.log('registerData', registerData);
     // const { email, uid } = registerData.user;
-    const { fullName } = values.data;    
+    const { fullName } = data;    
+    const imageResp = yield call(imageUploadCloudinary, data.image);
+    console.log('imageResp', imageResp.secure_url);
     // yield call(registerFirebaseDB, { uid, email, fullName });
   } catch (error) {
     console.log(error);
